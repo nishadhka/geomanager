@@ -1,8 +1,8 @@
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.menu import MenuItem, Menu
-from wagtail_modeladmin.menus import GroupMenuItem
-from wagtail_modeladmin.options import ModelAdminGroup
+from wagtail.modeladmin.menus import GroupMenuItem
+from wagtail.modeladmin.options import ModelAdminGroup
 
 from geomanager.admin.boundary import urls as boundary_urls
 from geomanager.admin.category import CategoryModelAdmin

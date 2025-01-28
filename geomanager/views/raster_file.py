@@ -29,7 +29,7 @@ from wagtail.admin.auth import (
 from wagtail.api.v2.utils import get_full_url
 from wagtail.models import Site
 from wagtail.snippets.permissions import get_permission_name
-from wagtail_modeladmin.helpers import AdminURLHelper
+from wagtail.admin.helpers import AdminURLHelper
 from wagtailcache.cache import cache_page
 
 from geomanager.decorators import revalidate_cache

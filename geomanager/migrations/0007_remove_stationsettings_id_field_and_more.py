@@ -7,21 +7,21 @@ import geomanager.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geomanager', '0006_stationsettings'),
+        ('geomanager', '0006_GeoStationSettings'),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='stationsettings',
+            model_name='GeoStationSettings',
             name='id_field',
         ),
         migrations.AddField(
-            model_name='stationsettings',
+            model_name='GeoStationSettings',
             name='bounds',
             field=geomanager.fields.ListField(blank=True, max_length=256, null=True),
         ),
         migrations.AddField(
-            model_name='stationsettings',
+            model_name='GeoStationSettings',
             name='geom_type',
             field=models.CharField(blank=True, max_length=100, null=True),
         ),

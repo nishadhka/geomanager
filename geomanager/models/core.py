@@ -15,7 +15,7 @@ from wagtail.admin.panels import (
 from wagtail.fields import RichTextField
 from wagtail.models import Orderable
 from wagtail_adminsortable.models import AdminSortable
-from wagtail_modeladmin.helpers import AdminURLHelper
+from wagtail.admin.helpers import AdminURLHelper
 from wagtailiconchooser.widgets import IconChooserWidget
 
 from geomanager.helpers import (

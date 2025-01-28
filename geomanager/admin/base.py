@@ -1,33 +1,40 @@
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from wagtail_modeladmin.helpers import AdminURLHelper
-from wagtail_modeladmin.options import ModelAdmin
-from wagtail_modeladmin.views import IndexView, DeleteView
+from wagtail.admin.views import generic
+from wagtail.admin.menu import MenuItem
+from wagtail.models import Page
+from wagtail.admin.panels import FieldPanel
+from django.urls import reverse
 
 from geomanager.models import Dataset, Category
 
 
-class BaseModelAdmin(ModelAdmin):
-    index_template_name = "geomanager/modeladmin/index.html"
+class BaseModelAdmin(Page):
+    """
+    Base class for managing models in Wagtail admin.
+    """
+    template_name = "geomanager/modeladmin/index.html"
     create_template_name = "geomanager/modeladmin/create.html"
     edit_template_name = "geomanager/modeladmin/edit.html"
 
+    content_panels = Page.content_panels + [
+        FieldPanel("title"),
+    ]
 
-class ModelAdminCanHide(ModelAdmin):
-    hidden = False
 
+class LayerIndexView(generic.IndexView):
+    """
+    Custom view for the layer index page.
+    """
+    model = Dataset
 
-class LayerIndexView(IndexView):
     def get_context_data(self, **kwargs):
-        context_data = super(LayerIndexView, self).get_context_data(**kwargs)
+        context_data = super().get_context_data(**kwargs)
 
         model_verbose_name = self.model._meta.verbose_name_plural
 
-        dataset_admin_helper = AdminURLHelper(Dataset)
-        datasets_url = dataset_admin_helper.get_action_url("index")
-
-        category_admin_helper = AdminURLHelper(Category)
-        categories_url = category_admin_helper.get_action_url("index")
+        datasets_url = reverse("wagtailadmin_explore_root")
+        categories_url = reverse("wagtailadmin_explore_root")
 
         navigation_items = [
             {"url": categories_url, "label": _("Categories")},
@@ -46,15 +53,26 @@ class LayerIndexView(IndexView):
         return context_data
 
 
-class LayerFileDeleteView(DeleteView):
-    # update index url to add layer__id,
-    # so that we redirect to raster files list filtered to
-    # this instance's layer id, the url probably used to arrive to this list
+class LayerFileDeleteView(generic.DeleteView):
+    """
+    Custom view for deleting layer files.
+    """
     @cached_property
     def index_url(self):
-        index_url = self.url_helper.index_url
-        if self.instance:
-            layer_id = str(self.instance.layer.pk)
+        index_url = self.get_success_url()
+        if self.object:
+            layer_id = str(self.object.layer.pk)
             index_url += f"?layer__id={layer_id}"
-
         return index_url
+
+
+# Adding items to the Wagtail admin menu
+class GeomanagerMenuItem(MenuItem):
+    def __init__(self, *args, **kwargs):
+        super().__init__("Geomanager", reverse("wagtailadmin_explore_root"), *args, **kwargs)
+
+
+# Register the menu item (optional)
+def register_admin_menu_items():
+    from wagtail.admin.menu import admin_menu
+    admin_menu.add_item(GeomanagerMenuItem())

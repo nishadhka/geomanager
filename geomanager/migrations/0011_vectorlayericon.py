@@ -8,7 +8,7 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geomanager', '0010_remove_stationsettings_popup_props'),
+        ('geomanager', '0010_remove_GeoStationSettings_popup_props'),
     ]
 
     operations = [

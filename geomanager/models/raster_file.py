@@ -12,7 +12,7 @@ from wagtail.api.v2.utils import get_full_url
 from wagtail.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.models import Image
-from wagtail_modeladmin.helpers import AdminURLHelper
+from wagtail.admin.helpers import AdminURLHelper
 
 from geomanager.blocks import (
     FileLayerPointAnalysisBlock,

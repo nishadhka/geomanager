@@ -1,8 +1,8 @@
 from django.urls import path
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from wagtail_modeladmin.helpers import AdminURLHelper
-from wagtail_modeladmin.views import CreateView, EditView
+from wagtail.admin.helpers import AdminURLHelper
+from wagtail.admin.views import CreateView, EditView
 
 from geomanager.admin.base import BaseModelAdmin, ModelAdminCanHide, LayerIndexView
 from geomanager.models import Dataset, WmsLayer, Category

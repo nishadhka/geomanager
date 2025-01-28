@@ -1,6 +1,6 @@
 from django.contrib.admin.utils import quote
 from django.urls import reverse
-from wagtail_modeladmin.helpers import AdminURLHelper
+from wagtail.modeladmin.helpers import AdminURLHelper
 
 
 def get_layer_action_url(layer_type, action, action_args=None):

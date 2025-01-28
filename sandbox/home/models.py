@@ -24,8 +24,8 @@ class HomePage(Page):
 
 
 @register_setting
-class StationSettings(BaseSiteSetting):
-    stations_table_name = "home_station"
+class GeoStationSettings(BaseSiteSetting):  # Magac cusub si uu uga fogaado isku dhaca
+    stations_table_name = "geo_station"
     db_schema = "public"
 
     columns = models.JSONField(blank=True, null=True)
@@ -129,7 +129,7 @@ class StationSettings(BaseSiteSetting):
         return popup_columns
 
 
-class StationsPage(RoutablePageMixin, Page):
+class GeoStationsPage(RoutablePageMixin, Page):  # Magac cusub si loo waafajiyo magac beddelka
     template = "stations/stations_list_page.html"
     parent_page_types = ["home.HomePage"]
     subpage_types = []
@@ -140,7 +140,7 @@ class StationsPage(RoutablePageMixin, Page):
     @path('')
     def all_stations(self, request, *args, **kwargs):
         context = {}
-        station_settings = StationSettings.for_request(request)
+        station_settings = GeoStationSettings.for_request(request)  # Magaca cusub halkaan
 
         stations_vector_tiles_url = get_full_url(request, station_settings.stations_vector_tiles_url)
 
@@ -194,7 +194,7 @@ class StationsPage(RoutablePageMixin, Page):
 
     @path('<int:station_pk>/')
     def station_detail(self, request, station_pk):
-        station_settings = StationSettings.for_request(request)
+        station_settings = GeoStationSettings.for_request(request)  # Magaca cusub halkaan
 
         # get stations model
         station_model = station_settings.get_station_model()

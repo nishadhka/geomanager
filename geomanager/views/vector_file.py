@@ -17,7 +17,7 @@ from wagtail.admin.auth import user_passes_test, user_has_any_page_permission, p
 from wagtail.api.v2.utils import get_full_url
 from wagtail.models import Site
 from wagtail.snippets.permissions import get_permission_name
-from wagtail_modeladmin.helpers import AdminURLHelper
+from wagtail.admin.helpers import AdminURLHelper
 from wagtailcache.cache import cache_page, clear_cache
 
 from geomanager.decorators import revalidate_cache
@@ -290,7 +290,6 @@ def preview_vector_layers(request, dataset_id, layer_id=None):
 
     context = {
         "dataset": dataset,
-        "layer": dataset.vector_file_layers.get(id=layer_id),
         "dataset_layers": json.dumps(dataset_layers, cls=UUIDEncoder),
         "selected_layer": layer_id,
         "datasets_index_url": dataset_list_url,

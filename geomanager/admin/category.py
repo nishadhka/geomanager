@@ -1,96 +1,70 @@
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from wagtail_adminsortable.admin import SortableAdminMixin
-from wagtail_modeladmin.helpers import AdminURLHelper, ButtonHelper
-from wagtail_modeladmin.views import CreateView, EditView
+from wagtail.admin.views import generic
+from wagtail.admin.menu import MenuItem
+from wagtail.models import Page
+from wagtail.admin.panels import FieldPanel
 
-from geomanager.admin.base import BaseModelAdmin, ModelAdminCanHide
 from geomanager.models import Category
 
 
-class CategoryCreateView(CreateView):
-    def get_context_data(self, **kwargs):
-        context_data = super(CategoryCreateView, self).get_context_data(**kwargs)
+class CategoryCreateView(generic.CreateView):
+    """
+    Custom create view for categories.
+    """
+    model = Category
+    template_name = "geomanager/category_create.html"
 
-        category_admin_helper = AdminURLHelper(Category)
-        category_index_url = category_admin_helper.get_action_url("index")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        category_index_url = self.get_success_url()
 
         navigation_items = [
             {"url": category_index_url, "label": Category._meta.verbose_name_plural},
             {"url": "#", "label": _("New") + f" {Category._meta.verbose_name}"},
         ]
 
-        context_data.update({
-            "navigation_items": navigation_items,
-        })
-
-        return context_data
+        context.update({"navigation_items": navigation_items})
+        return context
 
 
-class CategoryEditView(EditView):
+class CategoryEditView(generic.EditView):
+    """
+    Custom edit view for categories.
+    """
+    model = Category
+    template_name = "geomanager/category_edit.html"
+
     def get_context_data(self, **kwargs):
-        context_data = super(CategoryEditView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
-        category_admin_helper = AdminURLHelper(Category)
-        category_index_url = category_admin_helper.get_action_url("index")
+        category_index_url = self.get_success_url()
 
         navigation_items = [
             {"url": category_index_url, "label": Category._meta.verbose_name_plural},
-            {"url": "#", "label": self.instance.title},
+            {"url": "#", "label": self.object.title},
         ]
 
-        context_data.update({
-            "navigation_items": navigation_items,
-        })
-
-        return context_data
+        context.update({"navigation_items": navigation_items})
+        return context
 
 
-class CategoryButtonHelper(ButtonHelper):
-    def get_buttons_for_obj(
-            self, obj, exclude=None, classnames_add=None, classnames_exclude=None
-    ):
-        buttons = super().get_buttons_for_obj(obj, exclude, classnames_add, classnames_exclude)
-
-        classnames = self.edit_button_classnames + classnames_add
-        cn = self.finalise_classname(classnames, classnames_exclude)
-
-        create_dataset_button = {
-            "url": obj.dataset_create_url(),
-            "label": _("Add Dataset"),
-            "classname": cn,
-            "title": _("Add Dataset") % {"object": self.verbose_name},
-        }
-
-        buttons.append(create_dataset_button)
-
-        return buttons
-
-
-class CategoryModelAdmin(SortableAdminMixin, BaseModelAdmin, ModelAdminCanHide):
+class CategoryModelAdmin(Page):
+    """
+    Custom admin interface for categories.
+    """
     model = Category
     menu_label = _("Datasets")
-    exclude_from_explorer = True
-    button_helper_class = CategoryButtonHelper
     menu_icon = "layer-group"
-    list_display_add_buttons = "__str__"
 
-    create_view_class = CategoryCreateView
-    edit_view_class = CategoryEditView
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.list_display = ["category_icon"] + (list(self.list_display) or []) + ["view_datasets", "create_dataset",
-                                                                                   "mapviewer_map_url"]
-        self.category_icon.__func__.short_description = _('Icon')
-        self.create_dataset.__func__.short_description = _('Add Dataset')
-        self.view_datasets.__func__.short_description = _('View Datasets')
-        self.mapviewer_map_url.__func__.short_description = _("View on MapViewer")
+    content_panels = Page.content_panels + [
+        FieldPanel("title"),
+        FieldPanel("icon"),
+    ]
 
     def category_icon(self, obj):
-        icon = obj.icon
-        if not obj.icon:
-            icon = "layer-group"
+        icon = obj.icon or "layer-group"
 
         icon_html = f"""
            <span class="icon-wrapper">

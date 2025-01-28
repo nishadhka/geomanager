@@ -6,7 +6,7 @@ from wagtail.admin.auth import (
     user_passes_test,
     user_has_any_page_permission
 )
-from wagtail_modeladmin.helpers import AdminURLHelper
+from wagtail.admin.helpers import AdminURLHelper
 
 from geomanager.models import (
     Dataset, Category

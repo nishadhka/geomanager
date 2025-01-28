@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
             bases=(wagtail.contrib.routable_page.models.RoutablePageMixin, 'wagtailcore.page'),
         ),
         migrations.CreateModel(
-            name='StationSettings',
+            name='GeoStationSettings',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('columns', models.JSONField(blank=True, null=True)),

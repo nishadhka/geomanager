@@ -125,7 +125,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "wagtailcache",
-    "wagtail_modeladmin"
+    "wagtail.modeladmin"
 
     "wagtail.contrib.settings",
     "rest_framework",

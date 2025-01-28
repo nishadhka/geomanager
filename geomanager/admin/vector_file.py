@@ -1,8 +1,8 @@
 from django.urls import path
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from wagtail_modeladmin.helpers import AdminURLHelper
-from wagtail_modeladmin.views import CreateView, EditView, IndexView
+from wagtail.admin.helpers import AdminURLHelper
+from wagtail.admin.views import CreateView, EditView, IndexView
 
 from geomanager.admin.base import ModelAdminCanHide, BaseModelAdmin, LayerIndexView, LayerFileDeleteView
 from geomanager.models import Dataset, VectorFileLayer, PgVectorTable, Category
@@ -167,46 +167,6 @@ class VectorFileLayerModelAdmin(BaseModelAdmin, ModelAdminCanHide):
             </a>
         """
         return mark_safe(button_html)
-
-
-class VectorFileIndexView(IndexView):
-    def get_context_data(self, **kwargs):
-        context_data = super(VectorFileIndexView, self).get_context_data(**kwargs)
-
-        model_verbose_name = self.model._meta.verbose_name_plural
-
-        category_admin_helper = AdminURLHelper(Category)
-        categories_url = category_admin_helper.get_action_url("index")
-
-        dataset_admin_helper = AdminURLHelper(Dataset)
-        datasets_url = dataset_admin_helper.get_action_url("index")
-
-        layer_admin_helper = AdminURLHelper(VectorFileLayer)
-        layers_url = layer_admin_helper.get_action_url("index")
-
-        navigation_items = [
-            {"url": categories_url, "label": Category._meta.verbose_name_plural},
-            {"url": datasets_url, "label": Dataset._meta.verbose_name_plural},
-            {"url": layers_url, "label": VectorFileLayer._meta.verbose_name_plural},
-            {"url": "#", "label": model_verbose_name},
-        ]
-
-        context_data.update({
-            "navigation_items": navigation_items,
-        })
-
-        return context_data
-
-
-class VectorTableModelAdmin(BaseModelAdmin, ModelAdminCanHide):
-    model = PgVectorTable
-    index_view_class = VectorFileIndexView
-    hidden = True
-    list_display = ("__str__", "table_name",)
-    list_filter = ("layer",)
-    index_template_name = "geomanager/modeladmin/index_without_custom_create.html"
-    inspect_view_enabled = True
-    delete_view_class = LayerFileDeleteView
 
 
 urls = [

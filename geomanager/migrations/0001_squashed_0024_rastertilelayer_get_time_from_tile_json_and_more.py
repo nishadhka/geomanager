@@ -20,7 +20,7 @@ import wagtailiconchooser.blocks
 
 class Migration(migrations.Migration):
 
-    replaces = [('geomanager', '0001_initial'), ('geomanager', '0002_geomanagersettings_logo_and_more'), ('geomanager', '0003_alter_colorvalue_label_alter_colorvalue_threshold_and_more'), ('geomanager', '0004_alter_dataset_can_clip'), ('geomanager', '0005_delete_countryboundary_and_more'), ('geomanager', '0006_stationsettings'), ('geomanager', '0007_remove_stationsettings_id_field_and_more'), ('geomanager', '0008_stationsettings_name_column'), ('geomanager', '0009_stationsettings_popup_props'), ('geomanager', '0010_remove_stationsettings_popup_props'), ('geomanager', '0011_vectorlayericon'), ('geomanager', '0012_geomanagersettings_crop_raster_to_country'), ('geomanager', '0013_geomanagersettings_logo_external_link_and_more'), ('geomanager', '0014_geomanagersettings_privacy_policy_page_and_more'), ('geomanager', '0015_wmslayer_request_time_from_capabilities'), ('geomanager', '0016_wmslayer_date_format'), ('geomanager', '0017_wmslayer_more_info_alter_wmslayer_date_format'), ('geomanager', '0018_wmslayer_custom_get_capabilities_url'), ('geomanager', '0019_wmslayer_get_capabilities_layer_name_and_more'), ('geomanager', '0020_tmslayer'), ('geomanager', '0021_rasterfilelayer_rastertilelayer_vectorfilelayer_and_more'), ('geomanager', '0022_alter_rastertilelayer_options_and_more'), ('geomanager', '0023_vectortilelayericon'), ('geomanager', '0024_rastertilelayer_get_time_from_tile_json_and_more')]
+    replaces = [('geomanager', '0001_initial'), ('geomanager', '0002_geomanagersettings_logo_and_more'), ('geomanager', '0003_alter_colorvalue_label_alter_colorvalue_threshold_and_more'), ('geomanager', '0004_alter_dataset_can_clip'), ('geomanager', '0005_delete_countryboundary_and_more'), ('geomanager', '0006_GeoStationSettings'), ('geomanager', '0007_remove_GeoStationSettings_id_field_and_more'), ('geomanager', '0008_GeoStationSettings_name_column'), ('geomanager', '0009_GeoStationSettings_popup_props'), ('geomanager', '0010_remove_GeoStationSettings_popup_props'), ('geomanager', '0011_vectorlayericon'), ('geomanager', '0012_geomanagersettings_crop_raster_to_country'), ('geomanager', '0013_geomanagersettings_logo_external_link_and_more'), ('geomanager', '0014_geomanagersettings_privacy_policy_page_and_more'), ('geomanager', '0015_wmslayer_request_time_from_capabilities'), ('geomanager', '0016_wmslayer_date_format'), ('geomanager', '0017_wmslayer_more_info_alter_wmslayer_date_format'), ('geomanager', '0018_wmslayer_custom_get_capabilities_url'), ('geomanager', '0019_wmslayer_get_capabilities_layer_name_and_more'), ('geomanager', '0020_tmslayer'), ('geomanager', '0021_rasterfilelayer_rastertilelayer_vectorfilelayer_and_more'), ('geomanager', '0022_alter_rastertilelayer_options_and_more'), ('geomanager', '0023_vectortilelayericon'), ('geomanager', '0024_rastertilelayer_get_time_from_tile_json_and_more')]
 
     initial = True
 
@@ -352,7 +352,7 @@ class Migration(migrations.Migration):
             field=models.BooleanField(default=True, help_text='Check to enable clipping by boundary or drawn shapes, for raster and vector datasets. Not implemented for WMS types', verbose_name='Enable Clipping by shape'),
         ),
         migrations.CreateModel(
-            name='StationSettings',
+            name='GeoStationSettings',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('columns', models.JSONField(blank=True, null=True)),

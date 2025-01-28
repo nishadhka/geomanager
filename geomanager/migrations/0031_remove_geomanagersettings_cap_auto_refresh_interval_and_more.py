@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geomanager', '0030_delete_stationsettings'),
+        ('geomanager', '0030_delete_GeoStationSettings'),
     ]
 
     operations = [
