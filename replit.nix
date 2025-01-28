@@ -1,5 +1,8 @@
 {pkgs}: {
   deps = [
+    pkgs.python310  # Downgrade Python to 3.10
+    pkgs.python310Packages.setuptools
+    pkgs.python310Packages.pip
     pkgs.libgeotiff
     pkgs.zlib
     pkgs.netcdf
@@ -25,3 +28,4 @@
     pkgs.yarn
   ];
 }
+
