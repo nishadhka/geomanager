@@ -1,0 +1,37 @@
+modules = ["python-3.12", "web", "bash", "postgresql-16", "nodejs-18_x"]
+run = "bash -c 'chmod +x entrypoint.sh && .entrypoint.sh && python manage.py runserver 0.0.0.0:8000 && cd app/geomapviewer-main && yarn install'"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = [
+  "sh",
+  "-c",
+  "python3 manage.py runserver 0.0.0.0:8000 && cd app/geomapviewer-main && yarn start",
+]
+
+[[ports]]
+localPort = 3000
+externalPort = 3000
+
+[[ports]]
+localPort = 8000
+externalPort = 80
+
+[packager]
+afterInstall = "bash -c 'pip install -r sandbox/requirements.txt && mkdir -p /geomanager/data && mkdir -p /geomapviewer/static && mkdir -p /geomapviewer/media && cd app/geomapviewer-main && yarn start'"
+
+[env]
+PYTHONDONTWRITEBYTECODE = "1"
+PYTHONUNBUFFERED = "1"
+APP_HOME = "/home/app"
+GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR = "/geomanager/data"
+STATIC_ROOT = "/home/app/static"
+MEDIA_ROOT = "/home/app/media"
+DJANGO_SETTINGS_MODULE = "geomanagerweb.settings.dev"
+DEBUG = "True"
+ALLOWED_HOSTS = "0.0.0.0,localhost,127.0.0.1,mapviewer"
+MAPVIEWER_SERVER_URL = "http://localhost:3000"
+MAPVIEWER_BASE_PATH = "/mapviewer"
+MAPVIEWER_ASSET_PREFIX = "/mapviewer/static"
