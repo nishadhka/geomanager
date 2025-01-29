@@ -12,28 +12,18 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import environ
+from decouple import config, Csv
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
-
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False),
-    EMAIL_USE_TLS=(bool, True),
-)
-
-if os.path.exists(os.path.join(BASE_DIR, '.env')):
-    # reading .env file
-    environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # Application definition
 
-SECRET_KEY = os.getenv("SECRET_KEY",
-                       "django-insecure-change-this-in-production")
+SECRET_KEY = config("SECRET_KEY", 
+                   default="django-insecure-change-this-in-production")
 DEBUG = False
 ALLOWED_HOSTS = [
     '.repl.co', '.replit.dev', '0.0.0.0', 'localhost',
@@ -46,9 +36,9 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # Mapviewer settings
-MAPVIEWER_SERVER_URL = env.str("MAPVIEWER_SERVER_URL", "http://localhost:3000")
-MAPVIEWER_BASE_PATH = env.str("MAPVIEWER_BASE_PATH", "/mapviewer")
-MAPVIEWER_ASSET_PREFIX = env.str("MAPVIEWER_ASSET_PREFIX", "/mapviewer/static")
+MAPVIEWER_SERVER_URL = config("MAPVIEWER_SERVER_URL", default="http://localhost:3000")
+MAPVIEWER_BASE_PATH = config("MAPVIEWER_BASE_PATH", default="/mapviewer")
+MAPVIEWER_ASSET_PREFIX = config("MAPVIEWER_ASSET_PREFIX", default="/mapviewer/static")
 
 # Application definition
 
