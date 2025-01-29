@@ -11,7 +11,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geomanagerweb.settings.producti
 django_asgi_app = get_asgi_application()
 
 http_routes = [
-    path("health/", django_asgi_app),
+    path("health/", lambda request: HttpResponse("OK"), name='health_check'),
     re_path(r"", django_asgi_app)
 ]
 websocket_routers = []

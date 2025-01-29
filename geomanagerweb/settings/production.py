@@ -11,9 +11,13 @@ WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 SECRET_KEY = os.getenv("SECRET_KEY", secrets.token_urlsafe(64))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', '.repl.co', '.replit.dev', '0.0.0.0']
 
-CSRF_TRUSTED_ORIGINS = ['https://*.repl.co', 'https://*.replit.dev']
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.repl.co',
+    'https://*.replit.dev',
+    'https://*.replit.app'
+]
 
 DEBUG = False
 
