@@ -125,15 +125,7 @@ ASGI_APPLICATION = 'geomanagerweb.asgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'DATABASE_URL': os.environ['DATABASE_URL'],
-        'NAME': os.environ['PGDATABASE'],
-        'USER': os.environ['PGUSER'],
-        'PASSWORD': os.environ['PGPASSWORD'],
-        'HOST': os.environ['PGHOST'],
-        'PORT': os.environ['PGPORT'],
-    }
+    'default': env.db('DATABASE_URL', default='postgis://user:password@localhost:5432/geomanagerweb')
 }
 
 # Password validation
