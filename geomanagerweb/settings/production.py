@@ -1,5 +1,6 @@
 import os
 import secrets
+from environ import env
 from .base import *
 
 try:
@@ -17,11 +18,9 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.repl.co', 'https://*.replit.dev', 'https://*.replit.app'
-]
+] + env.list('CSRF_TRUSTED_ORIGINS', cast=None, default=[])
 
 DEBUG = False
-
-CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', cast=None, default=[])
 SECURE_CROSS_ORIGIN_OPENER_POLICY = env.str(
     "SECURE_CROSS_ORIGIN_OPENER_POLICY", None)
 
