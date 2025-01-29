@@ -19,7 +19,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.repl.co', 'https://*.replit.dev', 'https://*.replit.app'
 ]
 
-DEBUG = True
+DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', cast=None, default=[])
 SECURE_CROSS_ORIGIN_OPENER_POLICY = env.str(
