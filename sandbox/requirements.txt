@@ -1,3 +1,6 @@
+gunicorn==20.0.4
+--find-links https://girder.github.io/large_image_wheels
+GDAL
 adm-boundary-manager>=0.1.0
 affine==2.4.0
 aiohttp==3.8.4
@@ -36,7 +39,7 @@ django-cors-headers==4.0.0
 django-countries==7.5.1
 django-environ==0.10.0
 django-extensions==3.2.1
-django-filter==22.1
+django-filter>=23.3,<24.0
 django-json-widget==1.1.1
 django-large-image==0.10.0
 django-modelcluster>=6.1,<7.0
@@ -58,6 +61,7 @@ fonttools==4.39.4
 frozenlist==1.3.3
 fsspec==2023.5.0
 future==0.18.3
+geomanager==0.5.0
 geopandas==0.13.0
 html5lib==1.1
 hyperlink==21.0.0
@@ -123,7 +127,7 @@ typing_extensions>=4.6.0,!=4.7.0
 tzdata==2023.3
 uritemplate==4.1.1
 urllib3==2.0.2
-wagtail>=5.2
+wagtail==5.2.1
 wagtail-adminsortable @ https://github.com/Lh4cKg/wagtail-admin-sortable/archive/baa0d1f13a6bca4cc60e0d7dcd0522ecafcf5d67.zip#sha256=ab6ea62b180659f56330397e97e9fcc2769dd10801f52fd259bc3175d77e27b7
 wagtail-cache==2.3.0
 wagtail-color-panel==1.4.1
@@ -132,7 +136,7 @@ wagtail-humanitarian-icons==2.0.0
 wagtail-icon-chooser>=0.0.5
 webencodings==0.5.1
 websockets==11.0.3
-Willow==1.5.1
+Willow>=1.6.2,<=1.7
 xarray==2023.4.2
 yarl==1.9.2
 zipp==3.15.0
