@@ -1,6 +1,6 @@
 import os
 import secrets
-from environ import env
+from decouple import config
 from .base import *
 
 try:
@@ -18,14 +18,14 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.repl.co', 'https://*.replit.dev', 'https://*.replit.app'
-] + env.list('CSRF_TRUSTED_ORIGINS', cast=None, default=[])
+] + config('CSRF_TRUSTED_ORIGINS', default='').split(',')
 
 DEBUG = False
-SECURE_CROSS_ORIGIN_OPENER_POLICY = env.str(
-    "SECURE_CROSS_ORIGIN_OPENER_POLICY", None)
+SECURE_CROSS_ORIGIN_OPENER_POLICY = config(
+    "SECURE_CROSS_ORIGIN_OPENER_POLICY", default=None)
 
 CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', cast=None, default=[])
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='').split(',')
 
 CACHES = {
     'default': {
