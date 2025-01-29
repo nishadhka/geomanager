@@ -1,7 +1,6 @@
+import os
 import secrets
 from .base import *
-
-DEBUG = env('DEBUG', False)
 
 try:
     from .local import *
@@ -10,16 +9,13 @@ except ImportError:
 
 WAGTAIL_ENABLE_UPDATE_CHECK = False
 
-SECRET_KEY = env('SECRET_KEY', secrets.token_urlsafe(64))
+SECRET_KEY = os.getenv("SECRET_KEY", secrets.token_urlsafe(64))
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://*.repl.co',
-    'https://*.replit.dev'
-]
+CSRF_TRUSTED_ORIGINS = ['https://*.repl.co', 'https://*.replit.dev']
 
-DEBUG = env('DEBUG', False)
+DEBUG = False
 
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', cast=None, default=[])
 SECURE_CROSS_ORIGIN_OPENER_POLICY = env.str(
