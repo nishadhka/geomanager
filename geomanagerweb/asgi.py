@@ -5,6 +5,7 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from django.conf import settings
 from django.core.asgi import get_asgi_application
 from django.urls import re_path, path
+from django.http import HttpResponse
 from django_nextjs.proxy import NextJSProxyHttpConsumer, NextJSProxyWebsocketConsumer
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geomanagerweb.settings.production")
