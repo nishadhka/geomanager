@@ -34,7 +34,7 @@ if os.path.exists(os.path.join(BASE_DIR, '.env')):
 
 SECRET_KEY = os.getenv("SECRET_KEY",
                        "django-insecure-change-this-in-production")
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = [
     '.repl.co', '.replit.dev', '0.0.0.0', 'localhost',
     'geospatial-wagtail-e4drr.replit.app', 'mapviewer'
