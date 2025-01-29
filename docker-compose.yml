@@ -1,0 +1,101 @@
+version: '3'
+
+services:
+  geomanager_db:
+    container_name: geomanager_db
+    image: postgis/postgis:15-master
+    restart: always
+    environment:
+      - POSTGRES_USER=${CMS_DB_USER}
+      - POSTGRES_DB=${CMS_DB_NAME}
+      - POSTGRES_PASSWORD=${CMS_DB_PASSWORD}
+    ports:
+      - "5432"
+    volumes:
+      - ${CMS_DB_VOLUME}:/var/lib/postgresql/data/
+  geomanager_memcached:
+    image: memcached:1.6.12-alpine
+    container_name: geomanager_memcached
+    restart: always
+    ports:
+      - "11211"
+    entrypoint:
+      - memcached
+      - -m 1024
+      - -I 10m
+  geomanager_web:
+    platform: linux/x86_64
+    container_name: geomanager_web
+    build:
+      context: .
+      dockerfile: ./docker/cms/Dockerfile
+    restart: always
+    command: >
+      sh -c "/wait
+      && ./docker-entrypoint.sh
+      && gunicorn geomanagerweb.asgi 
+      --bind 0.0.0.0:8000 --workers=${CMS_NUM_OF_WORKERS} --worker-class=uvicorn.workers.UvicornWorker"
+    expose:
+      - "8000"
+    environment:
+      - WAIT_HOSTS=geomanager_db:5432,geomanager_memcached:11211
+      - WAIT_TIMEOUT=120
+      - DEBUG=${CMS_DEBUG}
+      - WAGTAIL_SITE_NAME=${CMS_SITE_NAME}
+      - ADMIN_URL_PATH=${ADMIN_URL_PATH}
+      - TIME_ZONE=${TIME_ZONE}
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
+      - DATABASE_URL=postgis://${CMS_DB_USER}:${CMS_DB_PASSWORD}@geomanager_db:5432/${CMS_DB_NAME}
+      - MEMCACHED_URI=geomanager_memcached:11211
+      - MAPVIEWER_SERVER_URL=http://geomanager_mapviewer:3000
+      - WAGTAILADMIN_BASE_URL=${CMS_BASE_URL}
+      - LANGUAGE_CODE=${CMS_DEFAULT_LANGUAGE_CODE}
+      - FORCE_SCRIPT_NAME=${FORCE_SCRIPT_NAME}
+      - GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR=/geomanager/data
+      - DJANGO_SETTINGS_MODULE=geomanagerweb.settings.production
+      - DJANGO_ALLOW_ASYNC_UNSAFE=true
+    depends_on:
+      - geomanager_db
+    ports:
+      - "8000"
+    volumes:
+      - ${CMS_STATIC_VOLUME}:/home/app/static
+      - ${CMS_MEDIA_VOLUME}:/home/app/media
+      - ${GEOMANAGER_AUTO_INGEST_DATA_VOLUME}:/geomanager/data
+      - ./docker/volumes/cms/.cache:/root/.cache
+  geomanager_mapviewer:
+    platform: linux/x86_64
+    container_name: geomanager_mapviewer
+    restart: always
+    build:
+      context: ./docker/mapviewer
+      dockerfile: Dockerfile
+      args:
+        - CMS_API=${MAPVIEWER_CMS_API}
+        - BASE_PATH=${MAPVIEWER_BASE_PATH}
+        - ASSET_PREFIX=${MAPVIEWER_ASSET_PREFIX}
+        - ANALYTICS_PROPERTY_ID=${ANALYTICS_PROPERTY_ID}
+        - BITLY_TOKEN=${BITLY_TOKEN}
+        - GOOGLE_CUSTOM_SEARCH_CX=${GOOGLE_CUSTOM_SEARCH_CX}
+        - GOOGLE_SEARCH_API_KEY=${GOOGLE_SEARCH_API_KEY}
+        - NEXT_TELEMETRY_DISABLED=1
+    volumes:
+      - ${MAPVIEWER_NEXT_STATIC_VOLUME}:/app/nginx/.next/static
+      - ./docker/volumes/mapviewer/.cache:/root/.cache
+    ports:
+      - "3000"
+  geomanager_nginx:
+    container_name: geomanager_nginx
+    image: nginx:1.20.2-alpine
+    restart: always
+    volumes:
+      - ${CMS_STATIC_VOLUME}:/wagtail_static
+      - ${CMS_MEDIA_VOLUME}:/wagtail_media
+      - ${MAPVIEWER_NEXT_STATIC_VOLUME}:/mapviewer/static
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - ${CMS_PORT}:80
+    depends_on:
+      - geomanager_web
