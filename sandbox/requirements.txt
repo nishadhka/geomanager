@@ -39,7 +39,7 @@ django-extensions==3.2.1
 django-filter==22.1
 django-json-widget==1.1.1
 django-large-image==0.10.0
-django-modelcluster==6.0
+django-modelcluster>=6.1,<7.0
 django-nextjs==2.4.0
 django-permissionedforms==0.1
 django-tables2==2.6.0
