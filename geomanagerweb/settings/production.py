@@ -1,7 +1,7 @@
 import secrets
 from .base import *
 
-DEBUG = False
+DEBUG = env('DEBUG', False)
 
 try:
     from .local import *
@@ -10,16 +10,13 @@ except ImportError:
 
 WAGTAIL_ENABLE_UPDATE_CHECK = False
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secrets.token_urlsafe(64)
-#SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY', secrets.token_urlsafe(64))
 
-# SECURITY WARNING: define the correct hosts in production!
-#ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = [
-    '.repl.co', '.replit.dev', '0.0.0.0', 'localhost',
-    'geospatial-wagtail-e4drr.replit.app', 'mapviewer'
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.repl.co',
+    'https://*.replit.dev'
 ]
 
 DEBUG = env('DEBUG', False)
