@@ -98,7 +98,7 @@ MIDDLEWARE = [
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
-ROOT_URLCONF = "sandbox.urls"
+ROOT_URLCONF = "geomanagerweb.urls"
 
 TEMPLATES = [
     {
@@ -118,8 +118,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "sandbox.wsgi.application"
-ASGI_APPLICATION = 'sandbox.asgi.application'
+WSGI_APPLICATION = "geomanagerweb.wsgi.application"
+ASGI_APPLICATION = 'geomanagerweb.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -210,7 +210,7 @@ MEDIA_URL = "/media/"
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "sandbox"
+WAGTAIL_SITE_NAME = "geomanagerweb"
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
