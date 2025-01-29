@@ -1,0 +1,2 @@
+modules = ["python-3.9", "web", "bash", "postgresql-16"]
+run = "python3 sandbox/manage.py runserver 0.0.0.0:8000"

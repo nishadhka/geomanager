@@ -29,18 +29,33 @@ if os.path.exists(os.path.join(BASE_DIR, '.env')):
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+# Application definition
 
+SECRET_KEY = os.getenv("SECRET_KEY",
+                       "django-insecure-change-this-in-production")
+DEBUG = True
+ALLOWED_HOSTS = [
+    '.repl.co', '.replit.dev', '0.0.0.0', 'localhost',
+    'geospatial-wagtail-e4drr.replit.app', 'mapviewer'
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.replit.dev', 'https://*.repl.co', 'https://*.replit.dev:8000',
+    'http://0.0.0.0:8000', 'http://localhost:3000', 'http://mapviewer:3000'
+]
+
+# Mapviewer settings
+MAPVIEWER_SERVER_URL = env.str("MAPVIEWER_SERVER_URL", "http://localhost:3000")
+MAPVIEWER_BASE_PATH = env.str("MAPVIEWER_BASE_PATH", "/mapviewer")
+MAPVIEWER_ASSET_PREFIX = env.str("MAPVIEWER_ASSET_PREFIX", "/mapviewer/static")
 
 # Application definition
 
 INSTALLED_APPS = [
     "home",
     "geomanager",
-
     "daphne",
     "channels",
     "base",
-
     "django_deep_translator",
     "adminboundarymanager",
     "django_large_image",
@@ -56,7 +71,6 @@ INSTALLED_APPS = [
     "wagtailfontawesomesvg",
     "wagtail_lazyimages",
     "django_cleanup.apps.CleanupConfig",
-
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.settings",
@@ -69,7 +83,6 @@ INSTALLED_APPS = [
     "wagtail.search",
     "wagtail.admin",
     "wagtail",
-
     "modelcluster",
     "taggit",
     "allauth",
@@ -79,7 +92,6 @@ INSTALLED_APPS = [
     "wagtail_modeladmin",
     "wagtailcache",
     "wagtailmetadata",
-
     "django.contrib.admin",
     "django.contrib.gis",
     "django.contrib.auth",
@@ -99,7 +111,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
-
     "allauth.account.middleware.AccountMiddleware",
 ]
 
@@ -130,24 +141,34 @@ ASGI_APPLICATION = 'geomanagerweb.asgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db()
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': os.environ['PGDATABASE'],
+        'USER': os.environ['PGUSER'],
+        'PASSWORD': os.environ['PGPASSWORD'],
+        'HOST': os.environ['PGHOST'],
+        'PORT': os.environ['PGPORT'],
+    }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME":
+        "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME":
+        "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+        "NAME":
+        "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        "NAME":
+        "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -216,9 +237,7 @@ WAGTAILADMIN_BASE_URL = env.str('WAGTAILADMIN_BASE_URL', '')
 # Wagtail admin Url path
 ADMIN_URL_PATH = env.str("ADMIN_URL_PATH", "admin")
 
-NEXTJS_SETTINGS = {
-    "nextjs_server_url": env.str('MAPVIEWER_SERVER_URL', None)
-}
+NEXTJS_SETTINGS = {"nextjs_server_url": env.str('MAPVIEWER_SERVER_URL', None)}
 
 CACHES = {
     'default': {
@@ -233,4 +252,5 @@ CACHES = {
 RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', '')
 RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY', '')
 
-GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR = env.str("GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR", "")
+GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR = env.str(
+    "GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR", "")

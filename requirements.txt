@@ -5,7 +5,7 @@ django-cleanup==8.0.0
 django-cors-headers==4.3.1
 django-deep-translator==1.5.1
 django-environ==0.11.2
-geomanager==0.4.2
+geomanager==0.5.0
 psycopg2-binary==2.9.9
 pymemcache==4.0.0
 wagtail==5.2.1
