@@ -15,7 +15,12 @@ SECRET_KEY = secrets.token_urlsafe(64)
 #SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: define the correct hosts in production!
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+#ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+
+ALLOWED_HOSTS = [
+    '.repl.co', '.replit.dev', '0.0.0.0', 'localhost',
+    'geospatial-wagtail-e4drr.replit.app', 'mapviewer'
+]
 
 DEBUG = env('DEBUG', False)
 

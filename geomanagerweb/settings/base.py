@@ -42,7 +42,7 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
     'https://*.replit.dev', 'https://*.repl.co', 'https://*.replit.dev:8000',
     'http://0.0.0.0:8000', 'http://localhost:3000', 'http://mapviewer:3000',
-    'geospatial-wagtail-e4drr.replit.app'
+    'geospatial-wagtail-e4drr.replit.app:80'
 ]
 
 # Mapviewer settings
