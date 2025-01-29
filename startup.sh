@@ -22,4 +22,15 @@ printenv | grep -v "no_proxy" >>/etc/environment
 #  --command='python manage.py ingest_geomanager_raster "${watch_event_type}" "${watch_src_path}" --dst "${watch_dest_path}" --overwrite' \
 #  $GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR &
 
-#exec "$@"
+# Calculate workers based on CPU cores
+CORES=$(nproc)
+WORKERS=$(( 2 * CORES + 1 ))
+
+# Start Gunicorn with calculated workers
+exec gunicorn geomanagerweb.wsgi:application \
+    --bind 0.0.0.0:8000 \
+    --workers $WORKERS \
+    --timeout 120 \
+    --access-logfile - \
+    --error-logfile - \
+    --log-level info
