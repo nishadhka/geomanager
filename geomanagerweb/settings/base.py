@@ -133,7 +133,7 @@ ASGI_APPLICATION = 'geomanagerweb.asgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db('DATABASE_URL', default={
+    'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': os.environ.get('PGDATABASE'),
         'USER': os.environ.get('PGUSER'),
@@ -170,7 +170,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = env.str("TIME_ZONE", "UTC")
+TIME_ZONE = config("TIME_ZONE", default="UTC")
 
 USE_I18N = True
 
@@ -179,7 +179,7 @@ USE_L10N = True
 USE_TZ = True
 
 # Django
-FORCE_SCRIPT_NAME = env.str("FORCE_SCRIPT_NAME", default=None)
+FORCE_SCRIPT_NAME = config("FORCE_SCRIPT_NAME", default=None)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -213,7 +213,7 @@ if FORCE_SCRIPT_NAME:
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = env.str("WAGTAIL_SITE_NAME", "GeoManager Web")
+WAGTAIL_SITE_NAME = config("WAGTAIL_SITE_NAME", default="GeoManager Web")
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
@@ -225,12 +225,12 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = env.str('WAGTAILADMIN_BASE_URL', '')
+WAGTAILADMIN_BASE_URL = config('WAGTAILADMIN_BASE_URL', default='')
 
 # Wagtail admin Url path
-ADMIN_URL_PATH = env.str("ADMIN_URL_PATH", "admin")
+ADMIN_URL_PATH = config("ADMIN_URL_PATH", default="admin")
 
-NEXTJS_SETTINGS = {"nextjs_server_url": env.str('MAPVIEWER_SERVER_URL', None)}
+NEXTJS_SETTINGS = {"nextjs_server_url": config('MAPVIEWER_SERVER_URL', default=None)}
 
 CACHES = {
     'default': {
@@ -242,8 +242,8 @@ CACHES = {
 }
 
 # RECAPTCHA Settings
-RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', '')
-RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY', '')
+RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY', default='')
+RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY', default='')
 
-GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR = env.str(
+GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR = config(
     "GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR", "")
