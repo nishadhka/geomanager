@@ -10,7 +10,10 @@ from django_nextjs.proxy import NextJSProxyHttpConsumer, NextJSProxyWebsocketCon
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geomanagerweb.settings.production")
 django_asgi_app = get_asgi_application()
 
-http_routes = [re_path(r"", django_asgi_app)]
+http_routes = [
+    path("health/", django_asgi_app),
+    re_path(r"", django_asgi_app)
+]
 websocket_routers = []
 
 if settings.DEBUG:

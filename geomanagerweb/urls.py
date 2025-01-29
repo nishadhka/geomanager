@@ -11,6 +11,7 @@ from wagtailcache.cache import cache_page
 ADMIN_URL_PATH = getattr(settings, "ADMIN_URL_PATH", None)
 
 urlpatterns = [
+    path('health/', lambda request: HttpResponse("OK"), name='health_check'),
     path("documents/", include(wagtaildocs_urls)),
 
     # geomanager urls
