@@ -33,9 +33,8 @@ CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', cast=None, default=[])
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-        'LOCATION': env('MEMCACHED_URI', default=""),
-        'KEY_PREFIX': 'cms_cache',
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/tmp/django_cache',
         'TIMEOUT': 14400,  # 4 hours (in seconds)
     },
 }
