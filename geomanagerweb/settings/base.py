@@ -127,7 +127,7 @@ ASGI_APPLICATION = 'geomanagerweb.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'DATA'
+        'DATABASE_URL': os.environ['DATABASE_URL'],
         'NAME': os.environ['PGDATABASE'],
         'USER': os.environ['PGUSER'],
         'PASSWORD': os.environ['PGPASSWORD'],
