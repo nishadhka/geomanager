@@ -5,38 +5,23 @@ import os
 DEBUG = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-development-key')
+SECRET_KEY = "django-insecure-v%m=de1@h_(n$$m!=h_v$egike=!!plq3=53(e3xlnk6qsu=fv"
 
 # SECURITY WARNING: define the correct hosts in production!
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0').split(',')
-
-# Database configuration for Replit
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('CMS_DB_NAME', 'geomanager'),
-        'USER': os.getenv('CMS_DB_USER', 'geomanager'),
-        'PASSWORD': os.getenv('CMS_DB_PASSWORD', 'geomanager'),
-        'HOST': os.getenv('CMS_DB_HOST', 'localhost'),
-        'PORT': os.getenv('CMS_DB_PORT', '5432'),
-    }
-}
-
-# Static files configuration for Replit
-STATIC_URL = '/static/'
-STATIC_ROOT = os.getenv('STATIC_ROOT', '/home/app/static')
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.getenv('MEDIA_ROOT', '/home/app/media')
+ALLOWED_HOSTS = ["*"]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+try:
+    from .local import *
+except ImportError:
+    pass
+
 CORS_ALLOW_ALL_ORIGINS = True
 
-INSTALLED_APPS += [
-    'wagtail.contrib.styleguide'
-]
+INSTALLED_APPS += ['wagtail.contrib.styleguide']
 
 # MapViewer configuration
 MAPVIEWER_BASE_PATH = os.getenv('MAPVIEWER_BASE_PATH', '/mapviewer')
-MAPVIEWER_ASSET_PREFIX = os.getenv('MAPVIEWER_ASSET_PREFIX', '/mapviewer/static')
+MAPVIEWER_ASSET_PREFIX = os.getenv('MAPVIEWER_ASSET_PREFIX',
+                                   '/mapviewer/static')

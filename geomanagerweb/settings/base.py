@@ -29,6 +29,7 @@ if os.path.exists(os.path.join(BASE_DIR, '.env')):
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+
 # Application definition
 
 SECRET_KEY = os.getenv("SECRET_KEY",
@@ -150,6 +151,7 @@ DATABASES = {
         'PORT': os.environ['PGPORT'],
     }
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
