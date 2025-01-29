@@ -1,4 +1,7 @@
 from .base import *
+from environ import Env
+
+env = Env()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
