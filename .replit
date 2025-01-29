@@ -1,5 +1,5 @@
 modules = ["python-3.9", "web", "bash", "postgresql-16"]
-run = "python3 manage.py runserver 0.0.0.0:8000"
+run = "python3 manage.py runserver 0.0.0.0:80"
 
 [[ports]]
 localPort = 8000
@@ -7,3 +7,4 @@ externalPort = 80
 
 [deployment]
 deploymentTarget = "cloudrun"
+run = ["sh", "-c", "python3 manage.py runserver 0.0.0.0:80"]
