@@ -22,8 +22,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 # Application definition
 
-SECRET_KEY = config("SECRET_KEY", 
-                   default="django-insecure-change-this-in-production")
+SECRET_KEY = config("SECRET_KEY",
+                    default="django-insecure-change-this-in-production")
 DEBUG = False
 ALLOWED_HOSTS = [
     '.repl.co', '.replit.dev', '0.0.0.0', 'localhost',
@@ -32,13 +32,15 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
     'https://*.replit.dev', 'https://*.repl.co', 'https://*.replit.dev:8000',
     'http://0.0.0.0:8000', 'http://localhost:3000', 'http://mapviewer:3000',
-    'geospatial-wagtail-e4drr.replit.app:80'
+    'https://geospatial-wagtail-e4drr.replit.app:80'
 ]
 
 # Mapviewer settings
-MAPVIEWER_SERVER_URL = config("MAPVIEWER_SERVER_URL", default="http://localhost:3000")
+MAPVIEWER_SERVER_URL = config("MAPVIEWER_SERVER_URL",
+                              default="http://localhost:3000")
 MAPVIEWER_BASE_PATH = config("MAPVIEWER_BASE_PATH", default="/mapviewer")
-MAPVIEWER_ASSET_PREFIX = config("MAPVIEWER_ASSET_PREFIX", default="/mapviewer/static")
+MAPVIEWER_ASSET_PREFIX = config("MAPVIEWER_ASSET_PREFIX",
+                                default="/mapviewer/static")
 
 # Application definition
 
@@ -230,7 +232,9 @@ WAGTAILADMIN_BASE_URL = config('WAGTAILADMIN_BASE_URL', default='')
 # Wagtail admin Url path
 ADMIN_URL_PATH = config("ADMIN_URL_PATH", default="admin")
 
-NEXTJS_SETTINGS = {"nextjs_server_url": config('MAPVIEWER_SERVER_URL', default=None)}
+NEXTJS_SETTINGS = {
+    "nextjs_server_url": config('MAPVIEWER_SERVER_URL', default=None)
+}
 
 CACHES = {
     'default': {
