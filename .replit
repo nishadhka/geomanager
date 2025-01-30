@@ -1,10 +1,14 @@
 modules = ["python-3.9", "web", "bash", "postgresql-16"]
-run = "python3 manage.py runserver 0.0.0.0:80"
+run = "gunicorn --config gunicorn_config.py sandbox.wsgi:application"
 
 [[ports]]
-localPort = 80
+localPort = 8000
 externalPort = 80
 
 [deployment]
 deploymentTarget = "cloudrun"
-run = ["sh", "-c", "python3 manage.py runserver 0.0.0.0:80"]
+run = [
+  "sh",
+  "-c",
+  "gunicorn --config gunicorn_config.py sandbox.wsgi:application",
+]
