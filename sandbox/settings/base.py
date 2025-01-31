@@ -41,7 +41,7 @@ SECRET_KEY = os.getenv("SECRET_KEY",
 DEBUG = True
 ALLOWED_HOSTS = [
     '.repl.co', '.replit.dev', '0.0.0.0', 'localhost',
-    'geospatial-wagtail-e4drr1.replit.app', 'mapviewer'
+    'geomanager-e4drr.replit.app', 'mapviewer'
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://*.replit.dev', 'https://*.repl.co', 'https://*.replit.dev:8000',
