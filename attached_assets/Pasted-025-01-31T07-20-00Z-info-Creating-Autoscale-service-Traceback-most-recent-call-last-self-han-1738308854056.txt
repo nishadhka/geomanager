@@ -1,0 +1,57 @@
+025-01-31T07:20:00Z info: Creating Autoscale service
+Traceback (most recent call last):
+    self.handle_request(listener, req, client, addr)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/core/handlers/base.py", line 139, in get_response
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/conf/__init__.py", line 94, in __getattr__
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    self.handle_request(listener, req, client, addr)
+Traceback (most recent call last):
+    val = getattr(_wrapped, name)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/core/handlers/base.py", line 139, in get_response
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/core/handlers/base.py", line 139, in get_response
+    response = self.get_response(request)
+    set_urlconf(settings.ROOT_URLCONF)
+    self.handle_request(listener, req, client, addr)
+    val = getattr(_wrapped, name)
+    response = self.get_response(request)
+    self.handle_request(listener, req, client, addr)
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/conf/__init__.py", line 94, in __getattr__
+AttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'
+    response = self.get_response(request)
+Traceback (most recent call last):
+    set_urlconf(settings.ROOT_URLCONF)
+AttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/conf/__init__.py", line 94, in __getattr__
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/core/handlers/base.py", line 139, in get_response
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/conf/__init__.py", line 94, in __getattr__
+AttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+[2025-01-31 07:21:19 +0000] [28] [ERROR] Error handling request /
+[2025-01-31 07:21:17 +0000] [28] [ERROR] Error handling request /
+    set_urlconf(settings.ROOT_URLCONF)
+AttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'
+    self.handle_request(listener, req, client, addr)
+    set_urlconf(settings.ROOT_URLCONF)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/conf/__init__.py", line 94, in __getattr__
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/core/handlers/wsgi.py", line 131, in __call__
+Traceback (most recent call last):
+Traceback (most recent call last):
+    set_urlconf(settings.ROOT_URLCONF)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/conf/__init__.py", line 94, in __getattr__
+    val = getattr(_wrapped, name)
+[2025-01-31 07:21:32 +0000] [28] [ERROR] Error handling request /
+AttributeError: 'Settings' object has no attribute 'ROOT_URLCONF'
+    respiter = self.wsgi(environ, resp.start_response)
+[2025-01-31 07:21:33 +0000] [28] [ERROR] Error handling request /
+2025-01-31T07:22:16Z error: The deployment is failing health checks. This can happen if the application isn't responding or responds with an error code. Check the logs for more information.
