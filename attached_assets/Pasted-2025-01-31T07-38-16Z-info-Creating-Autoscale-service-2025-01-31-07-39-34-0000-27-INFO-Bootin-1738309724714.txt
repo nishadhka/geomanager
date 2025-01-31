@@ -1,0 +1,86 @@
+2025-01-31T07:38:16Z info: Creating Autoscale service
+[2025-01-31 07:39:34 +0000] [27] [INFO] Booting worker with pid: 27
+[2025-01-31 07:39:34 +0000] [22] [INFO] Starting gunicorn 20.0.4
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/base.py", line 119, in init_process
+Traceback (most recent call last):
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/util.py", line 358, in import_app
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/apps/registry.py", line 91, in populate
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/util.py", line 358, in import_app
+    application = get_wsgi_application()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/apps/registry.py", line 91, in populate
+[2025-01-31 07:39:42 +0000] [51] [INFO] Using worker: sync
+    mod = importlib.import_module(module)
+[2025-01-31 07:39:42 +0000] [56] [INFO] Booting worker with pid: 56
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+[2025-01-31 07:39:43 +0000] [58] [INFO] Reason: Worker failed to boot.
+  File "<frozen importlib._bootstrap>", line 986, in _find_and_load_unlocked
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/app/wsgiapp.py", line 39, in load_wsgiapp
+[2025-01-31 07:39:46 +0000] [65] [INFO] Using worker: sync
+    django.setup(set_prefix=False)
+  File "<frozen importlib._bootstrap>", line 228, in _call_with_frames_removed
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/runner/workspace/sandbox/wsgi.py", line 16, in <module>
+[2025-01-31 07:39:54 +0000] [79] [INFO] Starting gunicorn 20.0.4
+Traceback (most recent call last):
+    return self.load_wsgiapp()
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
+    self.callable = self.load()
+    mod = importlib.import_module(module)
+    app_config = AppConfig.create(entry)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/util.py", line 358, in import_app
+crash loop detected
+    self.load_wsgi()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/app/base.py", line 67, in wsgi
+  File "/nix/store/lwl8ysfi2hhcyki6pc9qqbybzm5z55wv-python3-3.9.21/lib/python3.9/importlib/__init__.py", line 127, in import_module
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+    application = get_wsgi_application()
+  File "/home/runner/workspace/sandbox/wsgi.py", line 16, in <module>
+    app_config = AppConfig.create(entry)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/app/wsgiapp.py", line 49, in load
+  File "<frozen importlib._bootstrap>", line 984, in _find_and_load_unlocked
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+[2025-01-31 07:40:31 +0000] [70] [INFO] Booting worker with pid: 70
+[2025-01-31 07:40:31 +0000] [64] [INFO] Listening at: http://0.0.0.0:8000 (64)
+    worker.init_process()
+    apps.populate(settings.INSTALLED_APPS)
+[2025-01-31 07:40:34 +0000] [77] [INFO] Worker exiting (pid: 77)
+[2025-01-31 07:40:42 +0000] [84] [INFO] Booting worker with pid: 84
+    self.load_wsgi()
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+  File "/nix/store/lwl8ysfi2hhcyki6pc9qqbybzm5z55wv-python3-3.9.21/lib/python3.9/importlib/__init__.py", line 127, in import_module
+[2025-01-31 07:40:50 +0000] [91] [INFO] Booting worker with pid: 91
+[2025-01-31 07:40:50 +0000] [86] [INFO] Using worker: sync
+    self.load_wsgi()
+    self.callable = self.load()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/apps/config.py", line 193, in create
+crash loop detected
+[2025-01-31 07:41:13 +0000] [20] [INFO] Using worker: sync
+    self.callable = self.load()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/app/wsgiapp.py", line 49, in load
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+    worker.init_process()
+  File "<frozen importlib._bootstrap_external>", line 850, in exec_module
+command finished with error [sh -c gunicorn --config gunicorn_config.py sandbox.wsgi:application]: exit status 3
+  File "/nix/store/lwl8ysfi2hhcyki6pc9qqbybzm5z55wv-python3-3.9.21/lib/python3.9/importlib/__init__.py", line 127, in import_module
+    return self.load_wsgiapp()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/app/wsgiapp.py", line 49, in load
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+    self.wsgi = self.app.wsgi()
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 680, in _load_unlocked
+[2025-01-31 07:41:24 +0000] [69] [INFO] Booting worker with pid: 69
+    apps.populate(settings.INSTALLED_APPS)
+Traceback (most recent call last):
+[2025-01-31 07:41:33 +0000] [78] [INFO] Using worker: sync
+    self.callable = self.load()
+    return _bootstrap._gcd_import(name[level:], package, level)
+crash loop detected
+2025-01-31T07:41:45Z error: The deployment is crash looping. This can happen if the run command fails or exits immediately after starting. Check the logs for more information.
