@@ -1,5 +1,7 @@
 modules = ["python-3.9", "web", "bash", "postgresql-16"]
-run = "gunicorn --config gunicorn_config.py sandbox.wsgi:application"
+
+# For local development
+run = "sh -c 'python manage.py migrate && python manage.py collectstatic --noinput && gunicorn --config gunicorn_config.py sandbox.wsgi:application'"
 
 [[ports]]
 localPort = 8000
@@ -10,5 +12,5 @@ deploymentTarget = "cloudrun"
 run = [
   "sh",
   "-c",
-  "gunicorn --config gunicorn_config.py sandbox.wsgi:application",
+  "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn --config gunicorn_config.py sandbox.wsgi:application",
 ]
