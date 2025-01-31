@@ -1,0 +1,31 @@
+[2025-01-31 07:06:57 +0000] [20] [INFO] Using worker: sync
+[2025-01-31 07:06:57 +0000] [26] [INFO] Booting worker with pid: 26
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/app/wsgiapp.py", line 39, in load_wsgiapp
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/base.py", line 119, in init_process
+  File "/nix/store/lwl8ysfi2hhcyki6pc9qqbybzm5z55wv-python3-3.9.21/lib/python3.9/importlib/__init__.py", line 127, in import_module
+    django.setup(set_prefix=False)
+    application = get_wsgi_application()
+[2025-01-31 07:07:04 +0000] [34] [INFO] Starting gunicorn 20.0.4
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+    worker.init_process()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/app/wsgiapp.py", line 49, in load
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/apps/registry.py", line 91, in populate
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
+    import_module(entry)
+    mod = importlib.import_module(module)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/apps/config.py", line 193, in create
+[2025-01-31 07:07:12 +0000] [58] [INFO] Starting gunicorn 20.0.4
+    mod = importlib.import_module(module)
+    return util.import_app(self.app_uri)
+  File "<frozen importlib._bootstrap_external>", line 850, in exec_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/app/base.py", line 67, in wsgi
+[2025-01-31 07:07:19 +0000] [70] [INFO] Reason: Worker failed to boot.
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
+[2025-01-31 07:07:24 +0000] [76] [INFO] Using worker: sync
+[2025-01-31 07:07:24 +0000] [81] [INFO] Booting worker with pid: 81
+[2025-01-31 07:07:24 +0000] [81] [INFO] Worker exiting (pid: 81)
+crash loop detected

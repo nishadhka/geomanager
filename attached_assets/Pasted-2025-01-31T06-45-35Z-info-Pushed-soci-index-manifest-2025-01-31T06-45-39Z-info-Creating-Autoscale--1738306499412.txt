@@ -1,0 +1,38 @@
+2025-01-31T06:45:35Z info: Pushed soci index manifest
+2025-01-31T06:45:39Z info: Creating Autoscale service
+forwarding local port 8000 to external port 80
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/app/base.py", line 67, in wsgi
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
+    self.callable = self.load()
+  File "<frozen importlib._bootstrap>", line 680, in _load_unlocked
+    self.wsgi = self.app.wsgi()
+    return util.import_app(self.app_uri)
+    self.callable = self.load()
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+    worker.init_process()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
+[2025-01-31 06:46:40 +0000] [50] [INFO] Worker exiting (pid: 50)
+[2025-01-31 06:46:37 +0000] [38] [INFO] Worker exiting (pid: 38)
+command finished with error [sh -c gunicorn --config gunicorn_config.py sandbox.wsgi:application]: exit status 3
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    'NAME': os.environ['PGDATABASE'],
+    self.callable = self.load()
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+KeyError: 'PGDATABASE'
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/app/wsgiapp.py", line 49, in load
+[2025-01-31 06:46:46 +0000] [68] [ERROR] Exception in worker process
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
+    worker.init_process()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/workers/base.py", line 119, in init_process
+    raise KeyError(key) from None
+[2025-01-31 06:47:01 +0000] [75] [INFO] Listening at: http://0.0.0.0:8000 (75)
+[2025-01-31 06:47:01 +0000] [80] [INFO] Booting worker with pid: 80
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.9/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+    return self.load_wsgiapp()
+command finished with error [sh -c gunicorn --config gunicorn_config.py sandbox.wsgi:application]: exit status 3
+crash loop detected
+2025-01-31T06:47:16Z error: The deployment is crash looping. This can happen if the run command fails or exits immediately after starting. Check the logs for more information.
