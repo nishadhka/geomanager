@@ -39,6 +39,7 @@ django-countries==7.5.1
 django-environ==0.10.0
 django-extensions==3.2.1
 django-filter>=23.3,<24.0
+django-deep-translator<=1.5.1
 django-json-widget==1.1.1
 django-large-image==0.10.0
 django-modelcluster>=6.1,<7.0
