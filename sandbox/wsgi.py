@@ -1,3 +1,4 @@
+
 """
 WSGI config for sandbox project.
 
@@ -11,6 +12,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sandbox.settings.production")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sandbox.settings")
 
 application = get_wsgi_application()
