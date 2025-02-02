@@ -1,4 +1,5 @@
 --find-links https://girder.github.io/large_image_wheels GDAL
+gunicorn==20.0.4
 adm-boundary-manager>=0.1.0
 affine==2.4.0
 aiohttp==3.8.4
