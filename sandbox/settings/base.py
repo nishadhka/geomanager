@@ -38,7 +38,7 @@ if os.path.isfile(os.path.join(os.path.dirname(BASE_DIR), '.env')):
 # Application definition
 SECRET_KEY = os.getenv("SECRET_KEY",
                        "django-insecure-change-this-in-production")
-DEBUG = True
+
 ALLOWED_HOSTS = [
     '.repl.co', '.replit.dev', '0.0.0.0', 'localhost',
     'geomanager-test1.replit.app', 'mapviewer', '127.0.0.1'
