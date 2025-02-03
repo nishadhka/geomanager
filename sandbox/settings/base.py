@@ -34,6 +34,7 @@ if os.path.isfile(os.path.join(os.path.dirname(BASE_DIR), '.env')):
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+ROOT_URLCONF = "sandbox.urls"
 
 # Application definition
 SECRET_KEY = os.getenv("SECRET_KEY",
