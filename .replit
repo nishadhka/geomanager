@@ -1,5 +1,12 @@
-modules = ["python-3.9", "web", "bash", "postgresql-16"]
-run = "gunicorn --config gunicorn_config.py sandbox.wsgi:application"
+modules = ["postgresql-16"]
+[nix]
+channel = "stable-22_05"  # Using an older stable channel for better compatibility
+
+[env]
+VIRTUAL_ENV = ".venv"
+PATH = "${VIRTUAL_ENV}/bin:${PATH}"
+
+run = "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn --config gunicorn_config.py sandbox.wsgi:application"
 
 [[ports]]
 localPort = 8000
@@ -10,5 +17,9 @@ deploymentTarget = "cloudrun"
 run = [
   "sh",
   "-c",
-  "gunicorn --config gunicorn_config.py sandbox.wsgi:application",
+   """
+  python manage.py migrate && \
+  python manage.py collectstatic --noinput && \
+  gunicorn --config gunicorn_config.py sandbox.wsgi:application
+  """
 ]
