@@ -1,40 +1,45 @@
-{ pkgs }: {
-    deps = [
-      pkgs.python39
-      pkgs.gdal
-      pkgs.geos
-      pkgs.proj
-      (pkgs.writeShellScriptBin "setup-gdal" ''
-        mkdir -p $HOME/.local/lib
-        ln -sf ${pkgs.gdal}/lib/libgdal.so $HOME/.local/lib/libgdal.so.30
-      '')
-    ];
+{ pkgs }:
+let
+  # Create a derivation that builds a directory with the GDAL symlink.
+  setupGdal = pkgs.stdenv.mkDerivation {
+    name = "setup-gdal-symlink";
+    # No source files needed.
+    src = null;
+    buildCommand = ''
+      # Create the output directory (Nix will bind $out to a temporary build dir).
+      mkdir -p $out/.local/lib
+      # Create the symlink pointing to the actual GDAL shared library from pkgs.gdal.
+      ln -sf ${pkgs.gdal}/lib/libgdal.so $out/.local/lib/libgdal.so.30
+      # (Optionally, you can add a file to indicate success.)
+      echo "setup complete" > $out/done
+    '';
+  };
+in
+{
+  deps = [
+    pkgs.python39
+    pkgs.gdal
+    pkgs.geos
+    pkgs.proj
+    setupGdal
+  ];
 
   env = {
-    # Build a library search path using Nix-built libraries.
+    # Build a library search path including the directories provided by Nix
     LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
       "${pkgs.gdal}/lib"
       "${pkgs.geos}/lib"
       "${pkgs.proj}/lib"
+      # Add the symlink directory from our derivation.
+      "${setupGdal}/.local/lib"
     ];
 
-    # We will create a symlink at $HOME/.local/lib/libgdal.so.30 in the shellHook.
-    # Then we reference it with these environment variables.
-    GDAL_LIBRARY_NONDJANGO_PATH = "$HOME/.local/lib/libgdal.so.30";
-    GDAL_LIBRARY_PATH = "$HOME/.local/lib/libgdal.so.30";
-    GEOS_LIBRARY_PATH = "${pkgs.geos}/lib/libgeos_c.so";
+    # Point GDAL_LIBRARY_PATH to our symlink in the derivation output.
+    GDAL_LIBRARY_PATH = "${setupGdal}/.local/lib/libgdal.so.30";
+    GEOS_LIBRARY_PATH  = "${pkgs.geos}/lib/libgeos_c.so";
 
     GDAL_DATA = "${pkgs.gdal}/share/gdal";
-    PROJ_LIB = "${pkgs.proj}/share/proj";
+    PROJ_LIB  = "${pkgs.proj}/share/proj";
   };
-
-  shellHook = ''
-    # Create the local library directory if it doesn't exist.
-    mkdir -p $HOME/.local/lib
-
-    # Create (or update) the symlink pointing to the actual GDAL shared library from the nix store.
-    ln -sf ${pkgs.gdal}/lib/libgdal.so $HOME/.local/lib/libgdal.so.30
-
-    echo "Symlink ensured: $HOME/.local/lib/libgdal.so.30 -> ${pkgs.gdal}/lib/libgdal.so"
-  '';
 }
+
