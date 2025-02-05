@@ -18,6 +18,12 @@ RUN useradd wagtail && \
     build-essential \
     libpq-dev \
     libmariadb-dev \
+    # Add these Cairo-related packages
+    libcairo2-dev \
+    libcairo2 \
+    pkg-config \
+    python3-cairo \
+    cairo \
     libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \
