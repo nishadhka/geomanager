@@ -1,0 +1,10 @@
+name: myenv
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - django
+  - gdal        # installs GDAL along with its native shared library
+  - geos        # installs GEOS libraries
+  # any other conda packages you might need
+
