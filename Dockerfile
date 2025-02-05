@@ -53,7 +53,7 @@ COPY --chown=wagtail:wagtail . .
 
 # Switch back to wagtail user for running the application
 USER wagtail
-RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
+#RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
 # Collect static files
 RUN python manage.py collectstatic --noinput --clear
 
