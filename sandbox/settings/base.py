@@ -37,15 +37,15 @@ if os.path.isfile(os.path.join(os.path.dirname(BASE_DIR), '.env')):
 ROOT_URLCONF = "sandbox.urls"
 
 # Application definition
-SECRET_KEY = os.getenv("SECRET_KEY",
-                       "django-insecure-change-this-in-production")
+#SECRET_KEY = os.getenv("SECRET_KEY",
+#                       "django-insecure-change-this-in-production")
 
 ALLOWED_HOSTS = [
     '.repl.co', '.replit.dev', '0.0.0.0', 'localhost',
-    'geomanager-test1.replit.app', 'mapviewer', '127.0.0.1'
+    'geomanager-test1.replit.app', 'mapviewer', '127.0.0.1', '*.fly.dev'
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.replit.dev', 'https://*.repl.co', 'https://*.replit.dev:8000',
+    'https://*.fly.dev', 'https://*.repl.co', 'https://*.replit.dev:8000',
     'http://0.0.0.0:8000', 'http://localhost:3000', 'http://mapviewer:3000'
 ]
 
@@ -142,11 +142,11 @@ ASGI_APPLICATION = 'sandbox.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': os.environ['PGDATABASE'],
-        'USER': os.environ['PGUSER'],
-        'PASSWORD': os.environ['PGPASSWORD'],
-        'HOST': os.environ['PGHOST'],
-        'PORT': os.environ['PGPORT'],
+        'NAME': os.environ.get('PGDATABASE'),
+        'USER': os.environ.get('PGUSER'),
+        'PASSWORD': os.environ.get('PGPASSWORD'),
+        'HOST': os.environ.get('PGHOST'),
+        'PORT': os.environ.get('PGPORT'),
     }
 }
 

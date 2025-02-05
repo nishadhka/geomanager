@@ -5,7 +5,7 @@ DEBUG = False
 
 # More secure way to handle SECRET_KEY
 try:
-    SECRET_KEY = os.environ['SECRET_KEY']
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 except KeyError:
     raise Exception(
         "SECRET_KEY environment variable is not set! Please set it in Replit Secrets."

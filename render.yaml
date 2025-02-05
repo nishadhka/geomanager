@@ -14,8 +14,6 @@ services:
           property: connectionString
       - key: DJANGO_SETTINGS_MODULE
         value: sandbox.settings.production
-      - key: SECRET_KEY
-        sync: false
       - key: ALLOWED_HOSTS
         value: .onrender.com
       - key: GOOGLE_CREDENTIALS
