@@ -37,8 +37,8 @@ if os.path.isfile(os.path.join(os.path.dirname(BASE_DIR), '.env')):
 ROOT_URLCONF = "sandbox.urls"
 
 # Application definition
-SECRET_KEY = os.getenv("SECRET_KEY",
-                       "django-insecure-change-this-in-production")
+#SECRET_KEY = os.getenv("SECRET_KEY",
+#                       "django-insecure-change-this-in-production")
 
 ALLOWED_HOSTS = [
     '.repl.co', '.replit.dev', '0.0.0.0', 'localhost',
