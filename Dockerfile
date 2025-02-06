@@ -23,11 +23,14 @@ RUN useradd wagtail && \
     libcairo2 \
     pkg-config \
     python3-cairo \
-    cairo \
     libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \
+    postgresql-client \
+    netcat-openbsd \
+    curl \
     && rm -rf /var/lib/apt/lists/*
+
 
 # Create and set ownership of app directory
 RUN mkdir /app && \
