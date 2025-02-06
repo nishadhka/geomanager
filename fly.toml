@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for t2-fly-nis-geomanager on 2025-02-06T14:58:42+03:00
+# fly.toml app configuration file generated for t2-fly-nis-geomanager on 2025-02-06T19:37:06+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -13,10 +13,9 @@ console_command = '/code/manage.py shell'
   release_command = 'python manage.py migrate --noinput'
 
 [env]
+  DJANGO_SETTINGS_MODULE = 'sandbox.settings.production'
   PORT = '8000'
-  DJANGO_SETTINGS_MODULE = "sandbox.settings.production"
-  PYTHONPATH = "/app"
-
+  PYTHONPATH = '/app'
 
 [http_service]
   internal_port = 8000
