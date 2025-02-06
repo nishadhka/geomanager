@@ -1,19 +1,22 @@
-# fly.toml app configuration file generated for t2-fly-nis-geomanager on 2025-02-06T20:32:26+03:00
+# fly.toml app configuration file generated for t2-fly-nis-geomanager-morning-feather-167 on 2025-02-07T02:17:36+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 't2-fly-nis-geomanager'
+app = 't2-fly-nis-geomanager-morning-feather-167'
 primary_region = 'cdg'
 console_command = '/code/manage.py shell'
 
 [build]
+  dockerfile = 'Dockerfile'
 
 [deploy]
   release_command = 'python manage.py migrate --noinput'
 
 [env]
+  DJANGO_SETTINGS_MODULE = 'sandbox.settings.production'
   PORT = '8000'
+  PYTHONPATH = '/app'
 
 [http_service]
   internal_port = 8000
@@ -31,7 +34,3 @@ console_command = '/code/manage.py shell'
 [[statics]]
   guest_path = '/code/static'
   url_prefix = '/static/'
-
-[env]
-  DJANGO_SETTINGS_MODULE = "sandbox.settings.production"
-  PYTHONPATH = "/app"
