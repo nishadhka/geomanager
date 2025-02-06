@@ -70,5 +70,5 @@ ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 #CMD set -xe; python manage.py migrate --noinput; gunicorn sandbox.wsgi:application
 
 EXPOSE 8000
-ENV DJANGO_SETTINGS_MODULE="sandbox.sandbox.settings.production"
+ENV DJANGO_SETTINGS_MODULE="sandbox.settings.production"
 CMD ["gunicorn","--bind",":8000","--workers","2","sandbox.wsgi:application"]
