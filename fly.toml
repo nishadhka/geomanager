@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for t2-fly-nis-geomanager-morning-feather-167 on 2025-02-07T02:17:36+03:00
+# fly.toml app configuration file generated for t2-fly-nis-geomanager-morning-feather-167 on 2025-02-07T02:40:06+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -12,6 +12,7 @@ console_command = '/code/manage.py shell'
 
 [deploy]
   release_command = 'python manage.py migrate --noinput'
+  release_command_timeout = "5m"  # Increase from default
 
 [env]
   DJANGO_SETTINGS_MODULE = 'sandbox.settings.production'

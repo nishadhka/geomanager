@@ -16,7 +16,7 @@ import os
 
 import django.conf.locale
 import environ
-
+import dj_database_url
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False), )
@@ -139,15 +139,30 @@ ASGI_APPLICATION = 'sandbox.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#        'NAME': os.environ.get('PGDATABASE'),
+#        'USER': os.environ.get('PGUSER'),
+#        'PASSWORD': os.environ.get('PGPASSWORD'),
+#        'HOST': os.environ.get('PGHOST'),
+#        'PORT': os.environ.get('PGPORT'),
+#    }
+#}
+#
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': os.environ.get('PGDATABASE'),
-        'USER': os.environ.get('PGUSER'),
-        'PASSWORD': os.environ.get('PGPASSWORD'),
-        'HOST': os.environ.get('PGHOST'),
-        'PORT': os.environ.get('PGPORT'),
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        engine='django.contrib.gis.db.backends.postgis',
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=False  # Changed to False
+    )
+}
+
+# If needed, explicitly disable SSL
+DATABASES['default']['OPTIONS'] = {
+    'sslmode': 'disable',
 }
 
 # Password validation
