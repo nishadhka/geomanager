@@ -1,5 +1,8 @@
-{pkgs}: {
+{ pkgs ? import <nixpkgs> {} }:
+{
   deps = [
+    pkgs.micromamba
+    pkgs.bash
     pkgs.libgeotiff
     pkgs.zlib
     pkgs.netcdf
@@ -21,6 +24,7 @@
     pkgs.freetype
     pkgs.ffmpeg-full
     pkgs.cairo
+    pkgs.nodejs
     pkgs.yarn
   ];
 }
