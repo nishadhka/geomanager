@@ -17,6 +17,7 @@ import os
 import django.conf.locale
 import environ
 import dj_database_url
+
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False), )
@@ -110,6 +111,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
@@ -139,30 +141,19 @@ ASGI_APPLICATION = 'sandbox.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-#        'NAME': os.environ.get('PGDATABASE'),
-#        'USER': os.environ.get('PGUSER'),
-#        'PASSWORD': os.environ.get('PGPASSWORD'),
-#        'HOST': os.environ.get('PGHOST'),
-#        'PORT': os.environ.get('PGPORT'),
-#    }
-#}
-#
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL'),
         engine='django.contrib.gis.db.backends.postgis',
         conn_max_age=600,
         conn_health_checks=True,
-        ssl_require=False  # Changed to False
+        ssl_require=True  # Changed to False
     )
 }
 
 # If needed, explicitly disable SSL
 DATABASES['default']['OPTIONS'] = {
-    'sslmode': 'disable',
+    'sslmode': 'require',
 }
 
 # Password validation
@@ -239,7 +230,14 @@ STATICFILES_DIRS = [
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
 # JavaScript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
 # See https://docs.djangoproject.com/en/4.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+#STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+# For production static file serving
+#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+# WhiteNoise configuration
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"

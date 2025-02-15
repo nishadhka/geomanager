@@ -17,7 +17,7 @@
     pkgs.tk
     pkgs.tcl
     pkgs.qhull
-    pkgs.pkg-config
+    pkgs.pkg-config 
     pkgs.gtk3
     pkgs.gobject-introspection
     pkgs.ghostscript

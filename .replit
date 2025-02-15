@@ -1,20 +1,8 @@
 modules = ["postgresql-16"]
 
 [nix]
-channel = "stable-22_05"  # Using an older stable channel for better compatibility
-
-[env]
-VIRTUAL_ENV = ".venv"
-PATH = "${VIRTUAL_ENV}/bin:${PATH}"
-
-# Combine setup and start commands into a single run command.
-run = "mkdir -p $HOME/.local/lib && ln -sf /nix/store/your-gdal-path/lib/libgdal.so $HOME/.local/lib/libgdal.so.30 && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn --config gunicorn_config.py sandbox.wsgi:application"
+channel = "stable-22_05" # Using an older stable channel for better compatibility
 
 [[ports]]
 localPort = 8000
 externalPort = 80
-
-[deployment]
-deploymentTarget = "cloudrun"
-run = ["sh", "-c", "export MAMBA_ROOT_PREFIX=.mamba&&eval \"$(micromamba shell hook --shell=bash)\"&& micromamba activate a1 && gunicorn --config gunicorn_config.py sandbox.wsgi:application   "]
-
