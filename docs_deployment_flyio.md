@@ -181,6 +181,172 @@ These commands help diagnose and resolve connectivity or configuration problems.
 
 ---
 
+## **10. Destroying the Application**  
+If you need to **remove** the GeoManager application, follow these steps:
+
+1. **Check the status of the application** before proceeding:  
+   ```bash
+   fly status -a <app-name>
+   ```
+
+2. **Destroy the application** (this will remove it from Fly.io):  
+   ```bash
+   fly apps destroy <app-name>
+   ```
+
+3. **Force delete if necessary** (this skips confirmation prompts):  
+   ```bash
+   fly apps destroy <app-name> --force
+   ```
+
+After this, the application will no longer be available.
+
+---
+
+## **11. Destroying the PostgreSQL Instance**  
+Since Fly.io PostgreSQL instances are managed as **separate applications**, they must be deleted separately.
+
+1. **Check if the PostgreSQL instance is still running:**  
+   ```bash
+   fly status -a <postgres-app-name>
+   ```
+
+2. **List all PostgreSQL instances** to confirm the correct instance name:  
+   ```bash
+   fly postgres list
+   ```
+
+3. **Destroy the PostgreSQL instance** using the correct command (Fly.io does not support `fly postgres destroy`):  
+   ```bash
+   fly apps destroy <postgres-app-name>
+   ```
+
+4. **Force delete if necessary:**  
+   ```bash
+   fly apps destroy <postgres-app-name> --force
+   ```
+
+5. **Verify that the instance has been removed:**  
+   ```bash
+   fly status -a <postgres-app-name>
+   ```
+
+---
+
+## **12. Checking All Resources Before Deletion**  
+Before deleting, you may want to check what is running in your Fly.io environment:
+
+1. **List all applications (including PostgreSQL instances):**  
+   ```bash
+   fly apps list
+   ```
+
+2. **List all active machines:**  
+   ```bash
+   fly machines list
+   ```
+
+3. **List all PostgreSQL instances:**  
+   ```bash
+   fly postgres list
+   ```
+
+4. **List all volumes (persistent storage that might need to be deleted separately):**  
+   ```bash
+   fly volumes list
+   ```
+
+5. **Check allocated resources for an app or database:**  
+   ```bash
+   fly scale show -a <app-or-db-name>
+   ```
+
+---
+
+## **13. Handling Suspended PostgreSQL Instances**  
+If a PostgreSQL instance is suspended, it may need to be manually restarted before deletion.
+
+1. **Check the status:**  
+   ```bash
+   fly status -a <postgres-app-name>
+   ```
+
+2. **Start the suspended machine (if applicable):**  
+   ```bash
+   fly machine start -a <postgres-app-name>
+   ```
+
+3. **Restart the entire PostgreSQL application if needed:**  
+   ```bash
+   fly apps restart <postgres-app-name>
+   ```
+
+4. **Verify the instance has resumed:**  
+   ```bash
+   fly status -a <postgres-app-name>
+   ```
+
+5. **List all associated machines:**  
+   ```bash
+   fly machine list -a <postgres-app-name>
+   ```
+
+---
+
+## **14. Cleaning Up and Recreating PostgreSQL Instances**  
+If the database has corruption issues, it may be better to **delete and recreate** it.
+
+1. **Destroy the existing PostgreSQL app:**  
+   ```bash
+   fly apps destroy <postgres-app-name>
+   ```
+
+2. **Create a new PostgreSQL instance with PostGIS support:**  
+   ```bash
+   fly postgres create --image postgis/postgis:15-3.3 <new-db-name>
+   ```
+
+3. **Re-attach the new PostgreSQL instance to the application:**  
+   ```bash
+   fly postgres attach <new-db-name>
+   ```
+
+---
+
+## **15. Additional Cleanup (Optional)**  
+To fully remove Fly.io configurations from your local system:
+
+- **Remove Fly.io-related configuration files:**  
+  ```bash
+  rm -rf ~/.fly
+  ```
+
+- **Unset Fly.io-related environment variables if manually set:**  
+  ```bash
+  unset FLYCTL_INSTALL
+  unset PATH
+  ```
+
+---
+
+## **Summary of Destruction and Cleanup Steps**  
+| **Action** | **Command** |
+|------------|------------|
+| Destroy application | `fly apps destroy <app-name>` |
+| Force delete application | `fly apps destroy <app-name> --force` |
+| Destroy PostgreSQL instance | `fly apps destroy <postgres-app-name>` |
+| Force delete PostgreSQL | `fly apps destroy <postgres-app-name> --force` |
+| Check all applications | `fly apps list` |
+| Check all machines | `fly machines list` |
+| Check PostgreSQL instances | `fly postgres list` |
+| Check volumes | `fly volumes list` |
+| Restart suspended PostgreSQL | `fly machine start -a <postgres-app-name>` |
+| Restart the PostgreSQL app | `fly apps restart <postgres-app-name>` |
+| Create a new PostgreSQL instance | `fly postgres create --image postgis/postgis:15-3.3 <new-name>` |
+| Attach new PostgreSQL to app | `fly postgres attach <new-db-name>` |
+| Remove local Fly.io files | `rm -rf ~/.fly` |
+
+---
 ## **Summary of Key Considerations**
 1. **Ensure Fly.io CLI is set up correctly** using `export` commands.
 2. **Always attach the PostgreSQL database** to get necessary secrets.
