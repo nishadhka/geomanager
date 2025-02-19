@@ -7,8 +7,10 @@ This document provides a step-by-step guide to deploying GeoManager on Fly.io, i
 ## 1. **Environment Setup**
 Before using Fly.io CLI, ensure it's properly installed and accessible by adding it to your system's `PATH`:
 ```bash
+curl -L https://fly.io/install.sh | sh 
 export FLYCTL_INSTALL="$HOME/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
+fly auth login
 ```
 This allows the `fly` command to be used without specifying the full path.
 
@@ -178,12 +180,6 @@ To reset WireGuard:
 flyctl wireguard reset
 ```
 These commands help diagnose and resolve connectivity or configuration problems.
-
----
-
-# **Deploying and Troubleshooting GeoManager on Fly.io (Continued)**  
-
-This section continues from the previous deployment and troubleshooting guide, adding an important **observation regarding machine suspension** and ensuring the application remains active after deployment.
 
 ---
 
