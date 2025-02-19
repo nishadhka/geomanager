@@ -2,9 +2,10 @@ name: myenv
 channels:
   - conda-forge
 dependencies:
-  - python=3.9
+  - python=3.11.11
   - django
   - gdal        # installs GDAL along with its native shared library
   - geos        # installs GEOS libraries
+  - whitenoise
   # any other conda packages you might need
 

@@ -153,7 +153,7 @@ DATABASES = {
 
 # If needed, explicitly disable SSL
 DATABASES['default']['OPTIONS'] = {
-    'sslmode': 'require',
+    'sslmode': 'disable',
 }
 
 # Password validation
@@ -267,7 +267,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
-CSRF_TRUSTED_ORIGINS = ['https://*.replit.dev']
+#CSRF_TRUSTED_ORIGINS = ['https://*.replit.dev']
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=15),
