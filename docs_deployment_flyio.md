@@ -181,7 +181,50 @@ These commands help diagnose and resolve connectivity or configuration problems.
 
 ---
 
-## **10. Destroying the Application**  
+# **Deploying and Troubleshooting GeoManager on Fly.io (Continued)**  
+
+This section continues from the previous deployment and troubleshooting guide, adding an important **observation regarding machine suspension** and ensuring the application remains active after deployment.
+
+---
+
+## **10. Ensuring Application Stays Active Post-Deployment**  
+
+### **Observation: Fly.io Machines Suspend if Not Queried**  
+- After a successful deployment, **Fly.io automatically suspends the machine if there is no incoming request** to the provided URL.
+- This leads to **unexpected SSH failures** because the machine is in a **stopped state**.
+- Running `fly status` will show the application as **stopped**, making it difficult to debug.
+
+### **Solution: Query the Application URL Immediately After Deployment**
+To **prevent the machine from going into suspension**, you must **make a request to the provided URL** after deployment.  
+
+1. **Deploy the application** as usual:
+   ```bash
+   fly deploy
+   ```
+
+2. **Retrieve the application URL**:
+   ```bash
+   fly status -a <app-name>
+   ```
+
+3. **Make a request to keep the machine active**:
+   ```bash
+   curl https://<your-app>.fly.dev/
+   ```
+
+4. **Verify the status remains active**:
+   ```bash
+   fly status -a <app-name>
+   ```
+
+**Alternative:** If you want to keep the instance from suspending, consider setting a simple periodic request from another system:
+```bash
+while true; do curl -s https://<your-app>.fly.dev/ > /dev/null; sleep 300; done
+```
+(This sends a request every 5 minutes, preventing suspension.)
+
+
+## **11. Destroying the Application**  
 If you need to **remove** the GeoManager application, follow these steps:
 
 1. **Check the status of the application** before proceeding:  
@@ -203,7 +246,7 @@ After this, the application will no longer be available.
 
 ---
 
-## **11. Destroying the PostgreSQL Instance**  
+## **12. Destroying the PostgreSQL Instance**  
 Since Fly.io PostgreSQL instances are managed as **separate applications**, they must be deleted separately.
 
 1. **Check if the PostgreSQL instance is still running:**  
@@ -233,7 +276,7 @@ Since Fly.io PostgreSQL instances are managed as **separate applications**, they
 
 ---
 
-## **12. Checking All Resources Before Deletion**  
+## **13. Checking All Resources Before Deletion**  
 Before deleting, you may want to check what is running in your Fly.io environment:
 
 1. **List all applications (including PostgreSQL instances):**  
@@ -263,7 +306,7 @@ Before deleting, you may want to check what is running in your Fly.io environmen
 
 ---
 
-## **13. Handling Suspended PostgreSQL Instances**  
+## **14. Handling Suspended PostgreSQL Instances**  
 If a PostgreSQL instance is suspended, it may need to be manually restarted before deletion.
 
 1. **Check the status:**  
@@ -293,7 +336,7 @@ If a PostgreSQL instance is suspended, it may need to be manually restarted befo
 
 ---
 
-## **14. Cleaning Up and Recreating PostgreSQL Instances**  
+## **15. Cleaning Up and Recreating PostgreSQL Instances**  
 If the database has corruption issues, it may be better to **delete and recreate** it.
 
 1. **Destroy the existing PostgreSQL app:**  
@@ -313,7 +356,7 @@ If the database has corruption issues, it may be better to **delete and recreate
 
 ---
 
-## **15. Additional Cleanup (Optional)**  
+## **16. Additional Cleanup (Optional)**  
 To fully remove Fly.io configurations from your local system:
 
 - **Remove Fly.io-related configuration files:**  
