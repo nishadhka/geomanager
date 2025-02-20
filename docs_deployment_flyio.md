@@ -79,6 +79,18 @@ fly status
 ```
 - If the app is down, restart a machine before retrying SSH.
 
+As the dockerfile has the steps to deploy django apps 
+```bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py collectstatic --noinput
+```
+But it is missing with the step of 
+```bash 
+python manage.py createsuperuser 
+```
+For that to run to get the admin access, the ssh console has to be used 
+
 ## 6. **Troubleshooting**
 If the deployment or connection encounters issues, use:
 ```bash
