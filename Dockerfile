@@ -63,7 +63,7 @@ COPY --chown=wagtail:wagtail . .
 # Switch back to wagtail user for running the application
 USER wagtail
 # Add this before collectstatic
-RUN python manage.py migrate --noinput
+#RUN python manage.py migrate --noinput
 # Collect static files
 RUN python manage.py collectstatic --noinput --clear
 
